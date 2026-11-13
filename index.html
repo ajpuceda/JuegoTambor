@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="theme-color" content="#0b1226">
+<title>Tambor de Alonso</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+  body { min-height:100vh; display:flex; flex-direction:column; align-items:center; gap:14px;
+    background:radial-gradient(circle at top,#1e3a8a,#0b1226); color:#fff;
+    font-family:Georgia,serif; padding:18px 12px 28px; touch-action:none;
+    user-select:none; -webkit-user-select:none; overflow-x:hidden; }
+  h1 { font-size:1.6rem; color:#e8c766; text-align:center; letter-spacing:1px; }
+  .sub { color:rgba(255,255,255,.6); font-size:.85rem; text-align:center; margin-top:-6px; font-family:system-ui,sans-serif; }
+  .bar { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; align-items:center; }
+  button { font-family:system-ui,sans-serif; font-weight:700; border-radius:999px; padding:12px 20px;
+    font-size:1rem; border:none; cursor:pointer; transition:transform .1s; }
+  button:active { transform:scale(.94); }
+  .b1 { background:linear-gradient(#f0d678,#c9a227); color:#1a1a2e; box-shadow:0 6px 16px rgba(0,0,0,.4); }
+  .b2 { background:rgba(20,38,77,.85); color:#e8c766; border:2px solid #e8c766; box-shadow:0 6px 16px rgba(0,0,0,.4); }
+  .counter { background:rgba(255,255,255,.1); color:#e8c766; font-weight:600; border-radius:999px;
+    padding:10px 16px; font-size:.9rem; font-family:system-ui,sans-serif; }
+  svg { width:100%; max-width:440px; cursor:pointer; }
+  p.hint { color:rgba(255,255,255,.6); font-size:.8rem; text-align:center; max-width:420px;
+    font-family:system-ui,sans-serif; line-height:1.5; }
+  .gold { color:#e8c766; }
+</style>
+</head>
+<body>
+<h1>&#129345; Tambor de Alonso</h1>
+<div class="sub">Estilo Semana Santa &middot; toca con los dedos</div>
+<div class="bar">
+  <button class="b1" id="btnRoll">&#129345; Redoble</button>
+  <button class="b2" id="btnRim">&#128276; Golpe lateral</button>
+  <span class="counter" id="counter">Golpes: 0</span>
+</div>
+<svg id="drum" viewBox="0 0 400 430" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="shellGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#2c53c4"/><stop offset="0.5" stop-color="#1e3a8a"/><stop offset="1" stop-color="#12234d"/>
+    </linearGradient>
+    <radialGradient id="headGrad" cx="0.5" cy="0.38" r="0.75">
+      <stop offset="0" stop-color="#f8f1de"/><stop offset="1" stop-color="#e6d9b8"/>
+    </radialGradient>
+    <linearGradient id="goldGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f4dd8a"/><stop offset="1" stop-color="#b98a1e"/>
+    </linearGradient>
+    <linearGradient id="stickGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#9a6b3a"/><stop offset="1" stop-color="#c98f52"/>
+    </linearGradient>
+  </defs>
+
+  <ellipse cx="200" cy="402" rx="155" ry="20" fill="#000" opacity="0.35"/>
+
+  <path d="M60 120 L60 320 A140 48 0 0 0 340 320 L340 120 Z" fill="url(#shellGrad)"/>
+  <path d="M60 320 A140 48 0 0 0 340 320" fill="none" stroke="url(#goldGrad)" stroke-width="13"/>
+
+  <path d="M85 130 L120 310 L155 130 L190 310 L225 130 L260 310 L295 130" fill="none"
+    stroke="#8a6d1f" stroke-width="6" opacity="0.5" transform="translate(1.5 2)"/>
+  <path d="M85 130 L120 310 L155 130 L190 310 L225 130 L260 310 L295 130" fill="none"
+    stroke="#e8c766" stroke-width="5"/>
+  <line x1="63" y1="126" x2="63" y2="316" stroke="#e8c766" stroke-width="6"/>
+  <line x1="337" y1="126" x2="337" y2="316" stroke="#e8c766" stroke-width="6"/>
+
+  <circle cx="200" cy="262" r="26" fill="rgba(232,199,102,0.14)" stroke="#e8c766" stroke-width="3"/>
+  <path d="M200 244 V280 M184 258 H216" stroke="#e8c766" stroke-width="6" stroke-linecap="round"/>
+
+  <ellipse cx="200" cy="120" rx="140" ry="48" fill="url(#headGrad)"/>
+  <ellipse cx="200" cy="120" rx="112" ry="35" fill="none" stroke="#cbb98b" stroke-width="2"/>
+  <ellipse cx="200" cy="120" rx="140" ry="48" fill="none" stroke="url(#goldGrad)" stroke-width="12"/>
+
+  <g transform="translate(200 118) scale(1 0.6)">
+    <text x="1.8" y="13" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif"
+      font-size="44" letter-spacing="5" fill="rgba(255,255,255,0.55)">ALONSO</text>
+    <text x="0" y="11" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif"
+      font-size="44" letter-spacing="5" fill="#6a5426">ALONSO</text>
+    <path d="M0 -34 V-52 M-7 -43 H7" stroke="#6a5426" stroke-width="4" stroke-linecap="round"/>
+  </g>
+
+  <g opacity="0.95">
+    <line x1="18" y1="26" x2="140" y2="96" stroke="url(#stickGrad)" stroke-width="10" stroke-linecap="round"/>
+    <circle cx="140" cy="96" r="8" fill="#dcb078"/>
+    <line x1="382" y1="26" x2="260" y2="96" stroke="url(#stickGrad)" stroke-width="10" stroke-linecap="round"/>
+    <circle cx="260" cy="96" r="8" fill="#dcb078"/>
+  </g>
+
+  <g id="fx"></g>
+</svg>
+<p class="hint">Toca el <span class="gold">parche</span> con los dedos para golpear el tambor (vale multit&aacute;ctil)
+o toca el lateral azul para el golpe de aro. Arriba tienes <span class="gold">Redoble</span>
+y <span class="gold">Golpe lateral</span>.</p>
+
+<script>
+(function(){
+  var svg = document.getElementById('drum');
+  var fx = document.getElementById('fx');
+  var counter = document.getElementById('counter');
+  var NS = 'http://www.w3.org/2000/svg';
+  var count = 0, rolling = false, audio = null;
+
+  function ensureAudio(){
+    if (!audio) {
+      var AC = window.AudioContext || window.webkitAudioContext;
+      if (!AC) return null;
+      var ctx = new AC();
+      var noise = ctx.createBuffer(1, Math.floor(ctx.sampleRate * 0.5), ctx.sampleRate);
+      var d = noise.getChannelData(0);
+      for (var i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
+      audio = { ctx: ctx, noise: noise };
+    }
+    if (audio.ctx.state === 'suspended') audio.ctx.resume();
+    return audio;
+  }
+
+  function playHead(when, vol){
+    when = when || 0; vol = vol || 1;
+    var a = ensureAudio(); if (!a) return;
+    var ctx = a.ctx, noise = a.noise, t = ctx.currentTime + when;
+
+    var osc = ctx.createOscillator();
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(165, t);
+    osc.frequency.exponentialRampToValueAtTime(52, t + 0.18);
+    var og = ctx.createGain();
+    og.gain.setValueAtTime(0.001, t);
+    og.gain.exponentialRampToValueAtTime(0.95 * vol, t + 0.008);
+    og.gain.exponentialRampToValueAtTime(0.001, t + 0.3);
+    osc.connect(og); og.connect(ctx.destination);
+    osc.start(t); osc.stop(t + 0.32);
+
+    var src = ctx.createBufferSource(); src.buffer = noise;
+    var f = ctx.createBiquadFilter(); f.type = 'bandpass'; f.frequency.value = 1600; f.Q.value = 0.7;
+    var ng = ctx.createGain();
+    ng.gain.setValueAtTime(0.4 * vol, t);
+    ng.gain.exponentialRampToValueAtTime(0.001, t + 0.07);
+    src.connect(f); f.connect(ng); ng.connect(ctx.destination);
+    src.start(t); src.stop(t + 0.1);
+  }
+
+  function playRim(when){
+    when = when || 0;
+    var a = ensureAudio(); if (!a) return;
+    var ctx = a.ctx, noise = a.noise, t = ctx.currentTime + when;
+
+    var osc = ctx.createOscillator();
+    osc.type = 'triangle';
+    osc.frequency.setValueAtTime(430, t);
+    osc.frequency.exponentialRampToValueAtTime(290, t + 0.06);
+    var og = ctx.createGain();
+    og.gain.setValueAtTime(0.55, t);
+    og.gain.exponentialRampToValueAtTime(0.001, t + 0.09);
+    osc.connect(og); og.connect(ctx.destination);
+    osc.start(t); osc.stop(t + 0.12);
+
+    var src = ctx.createBufferSource(); src.buffer = noise;
+    var f = ctx.createBiquadFilter(); f.type = 'highpass'; f.frequency.value = 2500;
+    var ng = ctx.createGain();
+    ng.gain.setValueAtTime(0.3, t);
+    ng.gain.exponentialRampToValueAtTime(0.001, t + 0.035);
+    src.connect(f); f.connect(ng); ng.connect(ctx.destination);
+    src.start(t); src.stop(t + 0.06);
+  }
+
+  function vibrate(p){ try { if (navigator.vibrate) navigator.vibrate(p); } catch (e) {} }
+
+  function el(name, attrs, parent){
+    var e = document.createElementNS(NS, name);
+    for (var k in attrs) e.setAttribute(k, attrs[k]);
+    if (parent) parent.appendChild(e);
+    return e;
+  }
+
+  function anim(parent, attrName, values, dur){
+    var a = el('animate', {
+      attributeName: attrName, values: values, dur: dur + 's',
+      fill: 'freeze', begin: 'indefinite'
+    }, parent);
+    return a;
+  }
+
+  function addHit(x, y, kind, countIt){
+    countIt = countIt !== false;
+    var g = el('g', {}, fx);
+
+    if (kind === 'head') {
+      var gr = el('g', { transform: 'translate(' + x + ' ' + y + ')' }, g);
+      var dent = el('ellipse', { rx: 9, ry: 3.5, fill: 'rgba(60,40,10,0.25)', opacity: 0.6 }, gr);
+      anim(dent, 'opacity', '0.6;0', 0.4);
+      var ring = el('ellipse', { rx: 10, ry: 4, fill: 'none', stroke: '#6a5426',
+        'stroke-width': 3, opacity: 0.8 }, gr);
+      anim(ring, 'rx', '10;58', 0.45);
+      anim(ring, 'ry', '4;22', 0.45);
+      anim(ring, 'opacity', '0.8;0', 0.45);
+    } else {
+      var flash = el('rect', { x: 62, y: 122, width: 276, height: 196, rx: 8,
+        fill: '#fff', opacity: 0 }, g);
+      anim(flash, 'opacity', '0.35;0', 0.35);
+    }
+
+    var fromLeft = x < 200;
+    var px = fromLeft ? x + 108 : x - 108;
+    var py = y - 122;
+    var dx = fromLeft ? -108 : 108;
+    var a0 = fromLeft ? 42 : -42;
+    var a1 = fromLeft ? -8 : 8;
+    var gs = el('g', { transform: 'translate(' + px + ' ' + py + ')' }, g);
+    var inner = el('g', {}, gs);
+    var at = el('animateTransform', {
+      attributeName: 'transform', attributeType: 'XML', type: 'rotate',
+      values: a0 + ' 0 0; ' + a1 + ' 0 0; ' + a0 + ' 0 0',
+      keyTimes: '0;0.22;1', dur: '0.32s', fill: 'freeze', begin: 'indefinite'
+    }, inner);
+    el('line', { x1: 0, y1: 0, x2: dx, y2: 122, stroke: 'url(#stickGrad)',
+      'stroke-width': 9, 'stroke-linecap': 'round' }, inner);
+    el('circle', { cx: dx, cy: 122, r: 7, fill: '#e0b378' }, inner);
+
+    var all = g.querySelectorAll('animate, animateTransform');
+    for (var i = 0; i < all.length; i++) {
+      try { all[i].beginElement(); } catch (e) {}
+    }
+
+    if (countIt) { count++; counter.textContent = 'Golpes: ' + count; }
+    vibrate(kind === 'head' ? 15 : 8);
+    setTimeout(function(){ if (g.parentNode) g.parentNode.removeChild(g); }, 560);
+  }
+
+  svg.addEventListener('pointerdown', function(e){
+    ensureAudio();
+    var ctm = svg.getScreenCTM(); if (!ctm) return;
+    var p = new DOMPoint(e.clientX, e.clientY).matrixTransform(ctm.inverse());
+    var nx = (p.x - 200) / 140, ny = (p.y - 120) / 48;
+    if (nx * nx + ny * ny <= 1) { playHead(0, 1); addHit(p.x, p.y, 'head'); return; }
+    if (p.x >= 55 && p.x <= 345 && p.y >= 118 && p.y <= 332) {
+      playRim(0); addHit(p.x, Math.min(p.y, 318), 'rim');
+    }
+  });
+
+  document.getElementById('btnRoll').addEventListener('pointerdown', function(e){
+    e.preventDefault(); redoble();
+  });
+  document.getElementById('btnRim').addEventListener('pointerdown', function(e){
+    e.preventDefault(); playRim(0); addHit(324, 168, 'rim');
+  });
+
+  function redoble(){
+    if (rolling) return;
+    rolling = true;
+    ensureAudio();
+    var N = 18, step = 0.085;
+    for (var i = 0; i < N; i++) playHead(i * step, 0.3 + 0.45 * (i / N));
+    playHead(N * step, 1);
+    var i2 = 0;
+    var timer = setInterval(function(){
+      i2++;
+      var side = i2 % 2 === 0 ? -1 : 1;
+      addHit(200 + side * 46 + (Math.random() * 22 - 11),
+        126 + (Math.random() * 14 - 7), 'head', false);
+      if (i2 >= N) { clearInterval(timer); rolling = false; }
+    }, step * 1000);
+  }
+
+  document.addEventListener('touchend', function(){ ensureAudio(); }, { once: true });
+})();
+</script>
+</body>
+</html>
